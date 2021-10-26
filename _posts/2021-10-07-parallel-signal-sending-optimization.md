@@ -5,7 +5,7 @@ tags: message, signal, signal queue, message queue, parallel
 author: Kjell Winblad
 ---
 
-This blog post will discuss [the parallel signal sending
+This blog post discusses [the parallel signal sending
 optimization][parallel_sig_pr] that recently got merged into the
 master branch (scheduled to be included in Erlang/OTP 25). The
 optimization improves signal sending throughput when several processes
