@@ -205,7 +205,7 @@ way. When a thread tries to acquire the signal queue lock and the lock
 is already taken, the counter is increased, and otherwise, it is
 decreased, as the following code snippet illustrates:
 
-```
+```c
 void erts_proc_sig_queue_lock(Process* proc)
 {
     if (EBUSY == erts_proc_trylock(proc, ERTS_PROC_LOCK_MSGQ)) {
@@ -259,7 +259,7 @@ installed:
 The algorithm for fetching signals from the outer signal queue uses
 the Non-empty slots fields in the buffer array structure, so it only
 needs to check slots that are guaranteed to be non-empty. At a high
-level, the routine works according to the following pseudo-code::
+level, the routine works according to the following pseudo-code:
 
 1. Acquire the outer signal queue lock
 2. For each non-empty slot in the buffer array:
