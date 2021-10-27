@@ -52,7 +52,7 @@ documentation like this][sig_ord]:
 This guarantee means that if multiple processes send signals to a
 single process, all signals from the same process are received in the
 send order in the receiving process. Still, there is no ordering
-guarantee for two messages coming from two distinct processes. One
+guarantee for two signals coming from two distinct processes. One
 should not think about signal sending as instantaneous. There can be
 an arbitrary delay after a signal has been sent until it has reached
 its destination, but all signals from `A` to `B` travel on the same path
@@ -61,7 +61,7 @@ and cannot pass each other.
 The guarantee has deliberately been designed to allow for efficient
 implementations and allow for future optimizations. However, as we
 will see in the next section, before the optimization presented in
-this blog post, the implementation did not taken advantage of the
+this blog post, the implementation did not take advantage of the
 permissive ordering guarantee for signals sent between processes
 running on the same node.
 
@@ -77,9 +77,9 @@ process as in the following figure before the optimization:
 Of course, this is an extreme simplification of the Erlang process
 structure, but it is enough for our explanation. When a process has
 the `{message_queue_data, off_heap}` setting activated, the following
-algorithm is executed to send a message:
+algorithm is executed to send a signal:
 
-1. Allocate a new linked list node containing the message data
+1. Allocate a new linked list node containing the signal data
 2. Acquire the outer signal queue mutex lock
 3. Insert the new node at the end of the outer signal queue
 4. Release the signal queue lock
@@ -104,29 +104,34 @@ here is the algorithm for sending a signal to such a process:
    * If the try_lock call succeeded:
      1. Allocate space for the signal data on the process' main heap
         area and copy the signal data there
-     2. Release main process lock
-     3. Allocate a linked list node containing a pointer to the
+     2. Allocate a linked list node containing a pointer to the
         heap-allocated signal data
-     4. Acquire the outer signal queue lock
-     5. Insert the linked list node at the end of the outer signal
+     3. Acquire the outer signal queue lock
+     4. Insert the linked list node at the end of the outer signal
         queue
-     6. Release the outer signal queue lock
+     5. Release the outer signal queue lock
+     6. Release the main process lock
    * Else:
-     1. Allocate a new linked list node containing the message data
+     1. Allocate a new linked list node containing the signal data
      2. Acquire the outer signal queue lock
      3. Insert the new node at the end of the outer signal queue
      4. Release the outer signal queue lock
 
 
 The advantage of `{message_queue_data, on_heap}` compared to
-`{message_queue_data, off_heap}` is that the message data is copied
+`{message_queue_data, off_heap}` is that the signal data is copied
 directly to the receiving process main heap (when the try lock call
 for the main process lock succeeds). The disadvantage of
 `{message_queue_data, on_heap}` is that the sender creates extra
-contention on the receiver's main process lock. Therefore,
-`{message_queue_data, off_heap}` provides much better scalability than
-`{message_queue_data, on_heap}` when multiple processes send messages
-to the same process concurrently on a multicore system.
+contention on the receiver's main process lock. Notice that we cannot
+simply release the main process lock directly after allocating the
+data on the process heap. If a garbage collection happen before the
+signal have been inserted into the process' heap, the signal data
+would be lost (holding the main process lock prevents a garbage
+collection from happening). Therefore, `{message_queue_data,
+off_heap}` provides much better scalability than `{message_queue_data,
+on_heap}` when multiple processes send signals to the same process
+concurrently on a multicore system.
 
 However, even though `{message_queue_data, off_heap}` scales better
 than `{message_queue_data, on_heap}` with the old implementation,
@@ -142,13 +147,13 @@ The Parallel Signal Sending Optimization
 
 The optimization takes advantage of Erlang's permissive signal
 ordering guarantee discussed above. It is enough to keep the order of
-messages coming from the same entity to ensure the signal ordering
+signals coming from the same entity to ensure the signal ordering
 guarantee discussed above holds. So there is no need for different
 senders to synchronize with each other! In theory, signal sending
 could therefore be perfectly parallel. In practice, however, there is
 only one thread of execution that handles incoming signals, so we also
 have to keep in mind that we don't want to slow down the receiver and
-ideally make receiving messages faster. As signal queue data is stored
+ideally make receiving signals faster. As signal queue data is stored
 outside the process heap when the `{message_queue_data, off_heap}`
 setting is enabled, the garbage collector does not need to go through
 the whole signal queue, giving better performance for processes with a
@@ -176,16 +181,16 @@ an array with buffers.
 ![alt text]({% link blog/images/parallel_siq_q/after_opt_active_process_sturct.png %} "Process struct after optimization when the optimization is active")
 
 
-When the parallel signal sending optimization is active, enqueuers do
-not need to acquire the signal queue lock anymore. Enqueuers are
+When the parallel signal sending optimization is active, senders do
+not need to acquire the signal queue lock anymore. Senders are
 mapped to a slot in the buffer array by a simple hash function that is
-applied to the process ID (enqueuers without a process ID are
-currently mapped to the same slot). Before an enqueuer takes the
-signal queue lock of the receiving process, the enqueuer tries to
-enqueue in its buffer in the buffer array (if it exists). If the
-enqueue attempt succeeds, the enqueuer can continue without even
-touching the signal queue lock! The order of messages coming from the
-same entity is maintained because the same entity is always mapped to
+applied to the process ID (senders without a process ID are
+currently mapped to the same slot). Before an sender takes the
+signal queue lock of the receiving process, the sender tries to
+enqueue in its slot in the buffer array (if it exists). If the
+enqueue attempt succeeds, the sender can continue without even
+touching the signal queue lock! The order of signals coming from the
+same sender is maintained because the same sender is always mapped to
 the same slot in the buffer array. Now, you have probably got an idea
 of how the signal sending throughput can increase so much with the new
 optimization, as we saw in the benchmark figure presented
@@ -236,22 +241,22 @@ and updated to do the flush.
 ### Sending Signals with the Optimization Activated
 
 Pseudo-code for the algorithm that is executed when a process is
-sending a message to another process with a signal queue array buffer
-installed:
+sending a signal to another process with a signal queue array buffer
+installed can be seen below:
 
 
-1. Allocate a new linked list node containing the message data
-2. Map the process ID of the sender to the right slot index `I` with a hash function
-3. Acquire the lock for the slot with index `I`
-4. Check the "is alive" flag for the slot
+1. Allocate a new linked list node containing the signal data
+2. Map the process ID of the sender to the right slot `I` with a hash function
+3. Acquire the lock for the slot `I`
+4. Check the "is alive" flag for the slot `I`
    * If the "is alive"'s value is true:
-     1. Set the appropriate bit in the non-empty slots filed if the buffer is empty
-     2. Insert the allocated message node at the end of the linked list for the slot
-     3. Increase the number of enqueues counter in the slot by 1
-     4. Release the lock for the slot  with index `I`
-     5. The message is enqueued, and the thread can continue with the next task
+     1. Set the appropriate bit in the non-empty slots field, if the buffer is empty
+     2. Insert the allocated signal node at the end of the linked list for the slot `I`
+     3. Increase the number of enqueues counter in the slot `I` by 1
+     4. Release the lock for the slot `I`
+     5. The signal is enqueued, and the thread can continue with the next task
    * Else (the outer signal queue buffer array has been deactivated):
-     1. Release the lock for the slot with index `I`
+     1. Release the lock for the slot `I`
      2. Do the insert into the outer signal queue as the signal
         sending did it prior to the optimization
 
@@ -323,10 +328,10 @@ receiving messages is also substantially improved. For example, with
 16 processes, the receive throughput is 520 times better with the
 optimization! The improved receive throughput can be explained by the
 fact that in this scenario, the receiver has to fetch messages from
-the outer signal queue much more seldom. Enqueueing is much faster
+the outer signal queue much more seldom. Sending is much faster
 after the optimization, so the receiver will bring more messages from
 the outer signal queue to the inner every time it runs out of
-messages. The enqueuer can thus process messages from the inner queue
+messages. The sender can thus process messages from the inner queue
 for a longer time before it needs to fetch messages from the outer
 queue again. We cannot expect any improvement for the receiver beyond
 a certain point as there is only a single hardware thread that can
@@ -376,7 +381,7 @@ would be to make the signal queue buffer array expandable. For
 example, one could have contention detecting locks for each slot in
 the array. If the contention is high in a particular slot, one could
 expand this slot by creating a link to a subarray with buffers where
-enqueuers can use another hash function (similar to how the [HAMT data
+senders can use another hash function (similar to how the [HAMT data
 structure][hamt] works).
 
 
