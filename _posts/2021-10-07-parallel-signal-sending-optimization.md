@@ -47,8 +47,7 @@ documentation like this][sig_ord]:
 > "The only signal ordering guarantee given is the following: if an
 > entity sends multiple signals to the same destination entity, the
 > order is preserved; that is, if `A` sends a signal `S1` to `B`, and later
-> sends signal `S2` to `B`, `S1` is guaranteed not to arrive after `S2`. Note
-> that S1 may, or may not have been lost."
+> sends signal `S2` to `B`, `S1` is guaranteed not to arrive after `S2`."
 
 This guarantee means that if multiple processes send signals to a
 single process, all signals from the same process are received in the
