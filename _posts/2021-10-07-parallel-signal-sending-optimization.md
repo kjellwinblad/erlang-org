@@ -100,32 +100,34 @@ optimization is not enabled when a process is configured with
 `{message_queue_data, on_heap}` (which is the default setting), so
 here is the algorithm for sending a signal to such a process:
 
-1. Acquire the outer signal queue mutex lock
-2. Try to acquire the main process lock with a try_lock call
+
+1. Try to acquire the main process lock with a try_lock call
    * If the try_lock call succeeded:
-     1. Allocate space for the signal data on the process' garbage
-        collected heap and copy the signal data there
-     2. Allocate a linked list node containing a pointer to the
+     1. Allocate space for the signal data on the process' main heap
+        area and copy the signal data there
+     2. Release main process lock
+     3. Allocate a linked list node containing a pointer to the
         heap-allocated signal data
-     3. Insert the linked list node at the end of the outer signal
+     4. Acquire the outer signal queue lock
+     5. Insert the linked list node at the end of the outer signal
         queue
-     4. Release main process lock
+     6. Release the outer signal queue lock
    * Else:
      1. Allocate a new linked list node containing the message data
-     2. Insert the new node at the end of the outer signal queue
-3. Release the signal queue lock
+     2. Acquire the outer signal queue lock
+     3. Insert the new node at the end of the outer signal queue
+     4. Release the outer signal queue lock
+
 
 The advantage of `{message_queue_data, on_heap}` compared to
-`{message_queue_data, off_heap}` is obvious. The message data is
-copied directly to the receiving process heap (when the try lock call
-for the main process lock succeeds) and needs to be copied only
-once. The disadvantage of `{message_queue_data, on_heap}` is also
-obvious. The sender must acquire the outer signal queue lock for a
-much longer time as copying is done while holding the lock, and extra
-contention is created on the receiver's main process lock. Therefore,
+`{message_queue_data, off_heap}` is that the message data is copied
+directly to the receiving process main heap (when the try lock call
+for the main process lock succeeds). The disadvantage of
+`{message_queue_data, on_heap}` is that the sender creates extra
+contention on the receiver's main process lock. Therefore,
 `{message_queue_data, off_heap}` provides much better scalability than
-`{message_queue_data, on_heap}` when multiple processes send messages to
-the same process concurrently on a multicore system.
+`{message_queue_data, on_heap}` when multiple processes send messages
+to the same process concurrently on a multicore system.
 
 However, even though `{message_queue_data, off_heap}` scales better
 than `{message_queue_data, on_heap}` with the old implementation,
