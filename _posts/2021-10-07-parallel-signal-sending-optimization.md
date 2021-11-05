@@ -108,7 +108,7 @@ so here is the algorithm for sending a signal to such a process:
      2. Allocate a linked list node containing a pointer to the
         process heap-allocated signal data
      3. Acquire the `OuterSignalQueueLock`
-     4. Insert the linked list node at the end of the outer
+     4. Insert the linked list node at the end of the
         `OuterSignalQueue`
      5. Release the `OuterSignalQueueLock`
      6. Release the `MainProcessLock`
@@ -140,8 +140,8 @@ signal senders still had to acquire the `OuterSignalQueueLock` for a
 short time. This lock can become a scalability bottleneck and a
 contended hot-spot when there are enough parallel senders. This is why
 we saw very poor scalability and even a slowdown for the old
-implementation in the benchmark figure above when the process count is
-increased. Now, we are ready to look at the new optimization.
+implementation in the benchmark figure above. Now, we are ready to
+look at the new optimization.
 
 The Parallel Signal Sending Optimization
 ----------------------------------------
@@ -199,7 +199,7 @@ so much with the new optimization, as we saw in the benchmark figure
 presented earlier. Essentially, the contention on the
 `OuterSignalQueueLock` gets distributed among the slots in the
 `OuterSignalQueueBufferArray`. The rest of the subsections in this
-section cover details about the implementation, so you can skip those
+section cover details of the implementation, so you can skip those
 if you do not want to dig deeper.
 
 ### Adaptively Activating the Outer Signal Queue Buffers
