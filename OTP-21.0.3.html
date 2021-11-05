@@ -1,0 +1,53 @@
+---
+layout: patch
+erlang_download_readme: https://erlang.org/download/OTP-21.0.3.README
+html: https://github.com/erlang/otp/releases/download/OTP-21.0.3/otp_doc_html_21.0.3.tar.gz
+html_url: https://github.com/erlang/otp/releases/tag/OTP-21.0.3
+man: https://github.com/erlang/otp/releases/download/OTP-21.0.3/otp_doc_man_21.0.3.tar.gz
+name: 21.0.3
+published_at: 2020-09-25T11:39:13Z
+readme: https://github.com/erlang/otp/releases/download/OTP-21.0.3/OTP-21.0.3.README
+release: 21
+src: https://github.com/erlang/otp/releases/download/OTP-21.0.3/otp_src_21.0.3.tar.gz
+tag_name: OTP-21.0.3
+Applications:
+  otp-21.0.3:
+    pre: ""
+    post: ""
+    tickets:
+      OTP-15176:
+        release_note: "Build support for the erlang/corba repository.\n"
+        type: " --- Improvements and New Features ---"
+        Applications: "otp"
+        RelatedIds: "ERIERL-198, ERIERL-202, ERL-640, OTP-14283, OTP-15177"
+  erts-10.0.3:
+    pre: "The erts-10.0.3 application can be applied independently of other\n applications on a full OTP 21 installation."
+    post: "Full runtime dependencies of erts-10.0.3: kernel-6.0, sasl-3.0.1,\n stdlib-3.5"
+    tickets:
+      OTP-15154:
+        release_note: "Fixed a scheduler bug that caused normal schedulers to run dirty code.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "erts"
+      OTP-15183:
+        release_note: "Fixed a bug in erlang:trace_info/2 which caused the emulator to crash when a bad argument was passed. The bug was introduced in ERTS version 10.0.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "erts"
+        RelatedIds: "ERL-670"
+Application: erts-10.0.3
+Date: 2018-07-13
+GitTag: OTP-21.0.3
+PatchPackage: OTP 21.0.3
+Predecessor: OTP 21.0.2
+Release: 21
+Seqnum:
+  - ERIERL-198
+  - ERIERL-202
+  - ERL-640
+  - ERL-670
+System: OTP
+TroubleReportId:
+  - OTP-15154
+  - OTP-15183
+  - OTP-15176
+---
+## OTP-21.0.3

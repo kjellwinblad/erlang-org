@@ -1,0 +1,36 @@
+---
+layout: patch
+erlang_download_readme: https://erlang.org/download/OTP-23.2.7.2.README
+html: https://github.com/erlang/otp/releases/download/OTP-23.2.7.2/otp_doc_html_23.2.7.2.tar.gz
+html_url: https://github.com/erlang/otp/releases/tag/OTP-23.2.7.2
+man: https://github.com/erlang/otp/releases/download/OTP-23.2.7.2/otp_doc_man_23.2.7.2.tar.gz
+name: 23.2.7.2
+published_at: 2021-04-08T09:17:49Z
+readme: https://github.com/erlang/otp/releases/download/OTP-23.2.7.2/OTP-23.2.7.2.README
+release: 23
+src: https://github.com/erlang/otp/releases/download/OTP-23.2.7.2/otp_src_23.2.7.2.tar.gz
+tag_name: OTP-23.2.7.2
+Applications:
+  ssl-10.2.4.2:
+    pre: "The ssl-10.2.4.2 application can be applied independently of other\n applications on a full OTP 23 installation."
+    post: "Full runtime dependencies of ssl-10.2.4.2: crypto-4.2, erts-10.0,\n inets-5.10.7, kernel-6.0, public_key-1.8, stdlib-3.12"
+    tickets:
+      OTP-17305:
+        release_note: "Fix handling of emulated socket options, the previous patch was incomplete,\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "ssl"
+  Thanksto:
+    pre: ""
+    post: ""
+    tickets:
+Application: ssl-10.2.4.2
+Date: 2021-04-08
+GitTag: OTP-23.2.7.2
+PatchPackage: OTP 23.2.7.2
+Predecessor: OTP 23.2.7.1
+Release: 23
+Seqnum: 
+System: OTP
+TroubleReportId: OTP-17305
+---
+## OTP-23.2.7.2

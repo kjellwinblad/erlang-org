@@ -1,0 +1,92 @@
+---
+layout: patch
+erlang_download_readme: https://erlang.org/download/OTP-22.2.2.README
+html: https://github.com/erlang/otp/releases/download/OTP-22.2.2/otp_doc_html_22.2.2.tar.gz
+html_url: https://github.com/erlang/otp/releases/tag/OTP-22.2.2
+man: https://github.com/erlang/otp/releases/download/OTP-22.2.2/otp_doc_man_22.2.2.tar.gz
+name: 22.2.2
+published_at: 2020-09-25T11:38:52Z
+readme: https://github.com/erlang/otp/releases/download/OTP-22.2.2/OTP-22.2.2.README
+release: 22
+src: https://github.com/erlang/otp/releases/download/OTP-22.2.2/otp_src_22.2.2.tar.gz
+tag_name: OTP-22.2.2
+Applications:
+  crypto-4.6.4:
+    pre: "The crypto-4.6.4 application can be applied independently of other\n applications on a full OTP 22 installation."
+    post: "Full runtime dependencies of crypto-4.6.4: erts-9.0, kernel-5.3,\n stdlib-3.4"
+    tickets:
+      OTP-16376:
+        release_note: "Constant time comparisons added.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "crypto, ssh"
+  erts-10.6.2:
+    pre: "Note! The erts-10.6.2 application *cannot* be applied independently\n       of other applications on an arbitrary OTP 22 installation.\n\n       On a full OTP 22 installation, also the following runtime\n       dependency has to be satisfied:\n       -- kernel-6.5.1 (first satisfied in OTP 22.2)"
+    post: "Full runtime dependencies of erts-10.6.2: kernel-6.5.1, sasl-3.3,\n stdlib-3.5"
+    tickets:
+      OTP-16371:
+        release_note: "Taking a scheduler offline could cause timers set while executing on that scheduler to be delayed until the scheduler was put online again. This bug was introduced in ERTS version 10.0 (OTP 21.0).\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "erts"
+      OTP-16378:
+        release_note: "The ets:update_counter/4 core dumped when given an ordered_set with write_concurrency enabled and an invalid position. This bug has been fixed.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "erts, stdlib"
+        RelatedIds: "ERL-1125"
+      OTP-16379:
+        release_note: "A process calling erlang:system_flag(multi_scheduling, block) could end up blocked waiting for the operation to complete indefinitely.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "erts"
+      OTP-16333:
+        release_note: "Duplicate entries for [socket:]getopt and [socket:]setopt in man page.\n\n"
+        type: " --- Improvements and New Features ---"
+        Applications: "erts"
+        RelatedIds: "ERL-1104"
+  ssh-4.8.2:
+    pre: "Note! The ssh-4.8.2 application *cannot* be applied independently of\n       other applications on an arbitrary OTP 22 installation.\n\n       On a full OTP 22 installation, also the following runtime\n       dependency has to be satisfied:\n       -- crypto-4.6.4 (first satisfied in OTP 22.2.2)"
+    post: "Full runtime dependencies of ssh-4.8.2: crypto-4.6.4, erts-9.0,\n kernel-5.3, public_key-1.6.1, stdlib-3.4.1"
+    tickets:
+      OTP-16373:
+        release_note: "Fixed that ssh_connection:send could allocate a large amount of memory if given an iolist() as input data.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "ssh"
+      OTP-16375:
+        release_note: "Safe atom conversions.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "ssh"
+      OTP-16376:
+        release_note: "Constant time comparisons added.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "crypto, ssh"
+  stdlib-3.11.1:
+    pre: "Note! The stdlib-3.11.1 application *cannot* be applied independently\n       of other applications on an arbitrary OTP 22 installation.\n\n       On a full OTP 22 installation, also the following runtime\n       dependency has to be satisfied:\n       -- erts-10.6.2 (first satisfied in OTP 22.2.2)"
+    post: "Full runtime dependencies of stdlib-3.11.1: compiler-5.0, crypto-3.3,\n erts-10.6.2, kernel-6.0, sasl-3.0"
+    tickets:
+      OTP-16378:
+        release_note: "The ets:update_counter/4 core dumped when given an ordered_set with write_concurrency enabled and an invalid position. This bug has been fixed.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "erts, stdlib"
+        RelatedIds: "ERL-1125"
+Application:
+  - crypto-4.6.4
+  - erts-10.6.2
+  - ssh-4.8.2
+  - stdlib-3.11.1
+Date: 2020-01-13
+GitTag: OTP-22.2.2
+PatchPackage: OTP 22.2.2
+Predecessor: OTP 22.2.1
+Release: 22
+Seqnum:
+  - ERL-1104
+  - ERL-1125
+System: OTP
+TroubleReportId:
+  - OTP-16333
+  - OTP-16371
+  - OTP-16373
+  - OTP-16375
+  - OTP-16376
+  - OTP-16378
+  - OTP-16379
+---
+## OTP-22.2.2

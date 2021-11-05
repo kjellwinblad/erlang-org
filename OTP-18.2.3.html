@@ -1,0 +1,28 @@
+---
+layout: patch
+erlang_download_readme: https://erlang.org/download/OTP-18.2.3.README
+name: 18.2.3
+readme: https://erlang.org/download/OTP-18.2.3.README
+release: 18
+src: https://api.github.com/repos/erlang/otp/tarball/refs/tags/OTP-18.2.3
+tag_name: OTP-18.2.3
+Applications:
+  inets-6.1.1:
+    pre: "The inets-6.1.1 application can be applied independently of other\n applications on a full OTP 18 installation."
+    post: "Full runtime dependencies of inets-6.1.1: erts-6.0, kernel-3.0,\n mnesia-4.12, runtime_tools-1.8.14, ssl-5.3.4, stdlib-2.0"
+    tickets:
+      OTP-13248:
+        release_note: "mod_alias now traverses all aliases picking the longest match and not the first match.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "inets"
+Application: inets-6.1.1
+Date: 2016-01-29
+GitTag: OTP-18.2.3
+PatchPackage: OTP 18.2.3
+Predecessor: OTP 18.2.2
+Release: 18
+Seqnum: 
+System: OTP
+TroubleReportId: OTP-13248
+---
+## OTP-18.2.3

@@ -1,0 +1,103 @@
+---
+layout: patch
+erlang_download_readme: https://erlang.org/download/OTP-17.3.1.README
+name: 17.3.1
+readme: https://erlang.org/download/OTP-17.3.1.README
+release: 17
+src: https://api.github.com/repos/erlang/otp/tarball/refs/tags/OTP-17.3.1
+tag_name: OTP-17.3.1
+Applications:
+  eldap-1.0.4:
+    pre: "The eldap-1.0.4 application can be applied independently of other\n applications on a full OTP 17 installation."
+    post: "Full runtime dependencies of eldap-1.0.4: asn1-3.0, erts-6.0,\n kernel-3.0, ssl-5.3.4, stdlib-2.0"
+    tickets:
+      OTP-12182:
+        release_note: "eldap:open/2 and eldap:open/3 gave wrong return values for option errors.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "eldap"
+      OTP-12171:
+        release_note: "Nearly all TCP options are possible to give in the eldap:open/2 call.\n\n"
+        type: " --- Improvements and New Features ---"
+        Applications: "eldap"
+  erl_interface-3.7.19:
+    pre: "The erl_interface-3.7.19 application can be applied independently of\n other applications on a full OTP 17 installation."
+    post: ""
+    tickets:
+      OTP-12178:
+        release_note: "Added a .app file for the application.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "erl_interface, jinterface"
+  jinterface-1.5.11:
+    pre: "The jinterface-1.5.11 application can be applied independently of\n other applications on a full OTP 17 installation."
+    post: ""
+    tickets:
+      OTP-12178:
+        release_note: "Added a .app file for the application.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "erl_interface, jinterface"
+  orber-3.7.1:
+    pre: "The orber-3.7.1 application can be applied independently of other\n applications on a full OTP 17 installation."
+    post: "Full runtime dependencies of orber-3.7.1: erts-6.0, inets-5.10,\n kernel-3.0, mnesia-4.12, ssl-5.3.4, stdlib-2.0"
+    tickets:
+      OTP-12193:
+        release_note: "Fixed problem with IPv6 addresses in Service Context when Orber is default configured for IPv4.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "orber"
+  ose-1.0.2:
+    pre: "The ose-1.0.2 application can be applied independently of other\n applications on a full OTP 17 installation."
+    post: "Full runtime dependencies of ose-1.0.2: erts-6.0, stdlib-2.0"
+    tickets:
+      OTP-12177:
+        release_note: "Add missing release notes for the OSE application.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "ose"
+  ssh-3.0.6:
+    pre: "The ssh-3.0.6 application can be applied independently of other\n applications on a full OTP 17 installation."
+    post: "Full runtime dependencies of ssh-3.0.6: crypto-3.3, erts-6.0,\n kernel-3.0, public_key-0.22, stdlib-2.0"
+    tickets:
+      OTP-12157:
+        release_note: "Gracefully handle bad data from the client when expecting ssh version exchange.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "ssh"
+        RelatedIds: "seq12706"
+      OTP-12168:
+        release_note: "When restarting an ssh daemon, that was stopped with ssh:stop_listner/ [1,2] new options given shall replace old ones.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "ssh"
+        RelatedIds: "seq12711"
+      OTP-12194:
+        release_note: "The option parallel_login didn't work with the value true. All logins were serial.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "ssh"
+      OTP-12030:
+        release_note: "ssh now has a format_status function to avoid printing sensitive information in error loggs.\n\n"
+        type: " --- Improvements and New Features ---"
+        Applications: "ssh"
+Application:
+  - eldap-1.0.4
+  - erl_interface-3.7.19
+  - jinterface-1.5.11
+  - orber-3.7.1
+  - ose-1.0.2
+  - ssh-3.0.6
+Date: 2014-09-30
+GitTag: OTP-17.3.1
+PatchPackage: OTP 17.3.1
+Predecessor: OTP 17.3
+Release: 17
+Seqnum:
+  - seq12706
+  - seq12711
+System: OTP
+TroubleReportId:
+  - OTP-12030
+  - OTP-12157
+  - OTP-12168
+  - OTP-12171
+  - OTP-12177
+  - OTP-12178
+  - OTP-12182
+  - OTP-12193
+  - OTP-12194
+---
+## OTP-17.3.1

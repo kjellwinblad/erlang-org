@@ -1,0 +1,45 @@
+---
+layout: patch
+erlang_download_readme: https://erlang.org/download/OTP-21.3.8.10.README
+html: https://github.com/erlang/otp/releases/download/OTP-21.3.8.10/otp_doc_html_21.3.8.10.tar.gz
+html_url: https://github.com/erlang/otp/releases/tag/OTP-21.3.8.10
+man: https://github.com/erlang/otp/releases/download/OTP-21.3.8.10/otp_doc_man_21.3.8.10.tar.gz
+name: 21.3.8.10
+published_at: 2020-09-25T11:39:01Z
+readme: https://github.com/erlang/otp/releases/download/OTP-21.3.8.10/OTP-21.3.8.10.README
+release: 21
+src: https://github.com/erlang/otp/releases/download/OTP-21.3.8.10/otp_src_21.3.8.10.tar.gz
+tag_name: OTP-21.3.8.10
+Applications:
+  ftp-1.0.2.1:
+    pre: "The ftp-1.0.2.1 application can be applied independently of other\n applications on a full OTP 21 installation."
+    post: "Full runtime dependencies of ftp-1.0.2.1: erts-7.0, kernel-6.0,\n stdlib-3.5"
+    tickets:
+      OTP-16056:
+        release_note: "A possibly infinite loop when receiving messages divided in parts is removed.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "ftp"
+  ssh-4.7.6.2:
+    pre: "The ssh-4.7.6.2 application can be applied independently of other\n applications on a full OTP 21 installation."
+    post: "Full runtime dependencies of ssh-4.7.6.2: crypto-4.2, erts-6.0,\n kernel-3.0, public_key-1.5.2, stdlib-3.3"
+    tickets:
+      OTP-14849:
+        release_note: "The ssh cli (e.g shell) server behaved strangely when characters were inserted in a string so that the last characters tried to wrap the line.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "ssh"
+        RelatedIds: "ERL-545"
+Application:
+  - ftp-1.0.2.1
+  - ssh-4.7.6.2
+Date: 2019-10-25
+GitTag: OTP-21.3.8.10
+PatchPackage: OTP 21.3.8.10
+Predecessor: OTP 21.3.8.9
+Release: 21
+Seqnum: ERL-545
+System: OTP
+TroubleReportId:
+  - OTP-14849
+  - OTP-16056
+---
+## OTP-21.3.8.10

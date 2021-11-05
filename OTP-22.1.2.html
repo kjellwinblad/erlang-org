@@ -1,0 +1,33 @@
+---
+layout: patch
+erlang_download_readme: https://erlang.org/download/OTP-22.1.2.README
+html: https://github.com/erlang/otp/releases/download/OTP-22.1.2/otp_doc_html_22.1.2.tar.gz
+html_url: https://github.com/erlang/otp/releases/tag/OTP-22.1.2
+man: https://github.com/erlang/otp/releases/download/OTP-22.1.2/otp_doc_man_22.1.2.tar.gz
+name: 22.1.2
+published_at: 2020-09-25T11:38:55Z
+readme: https://github.com/erlang/otp/releases/download/OTP-22.1.2/OTP-22.1.2.README
+release: 22
+src: https://github.com/erlang/otp/releases/download/OTP-22.1.2/otp_src_22.1.2.tar.gz
+tag_name: OTP-22.1.2
+Applications:
+  erts-10.5.2:
+    pre: "The erts-10.5.2 application can be applied independently of other\n applications on a full OTP 22 installation."
+    post: "Full runtime dependencies of erts-10.5.2: kernel-6.1, sasl-3.3,\n stdlib-3.5"
+    tickets:
+      OTP-16125:
+        release_note: "Added the environment variable ERLC_SERVER_ID, which allows multiple compile servers to run separately under the same user.\n\n"
+        type: " --- Improvements and New Features ---"
+        Applications: "erts"
+        RelatedIds: "ERIERL-412"
+Application: erts-10.5.2
+Date: 2019-10-08
+GitTag: OTP-22.1.2
+PatchPackage: OTP 22.1.2
+Predecessor: OTP 22.1.1
+Release: 22
+Seqnum: ERIERL-412
+System: OTP
+TroubleReportId: OTP-16125
+---
+## OTP-22.1.2

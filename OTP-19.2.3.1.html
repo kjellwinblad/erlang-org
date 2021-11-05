@@ -1,0 +1,29 @@
+---
+layout: patch
+erlang_download_readme: https://erlang.org/download/OTP-19.2.3.1.README
+name: 19.2.3.1
+readme: https://erlang.org/download/OTP-19.2.3.1.README
+release: 19
+src: https://api.github.com/repos/erlang/otp/tarball/refs/tags/OTP-19.2.3.1
+tag_name: OTP-19.2.3.1
+Applications:
+  erts-8.2.2.1:
+    pre: "Note! The erts-8.2.2.1 application can *not* be applied independently\n       of other applications on an arbitrary OTP 19 installation.\n\n       On a full OTP 19 installation, also the following runtime\n       dependency has to be satisfied:\n       -- sasl-3.0.1 (first satisfied in OTP 19.1)"
+    post: "Full runtime dependencies of erts-8.2.2.1: kernel-5.0, sasl-3.0.1,\n stdlib-3.0"
+    tickets:
+      OTP-14795:
+        release_note: "Added more statistics for erlang:system_info({allocator,A}) in the mbcs_pool section.\n\n"
+        type: " --- Improvements and New Features ---"
+        Applications: "erts"
+        RelatedIds: "ERL-88"
+Application: erts-8.2.2.1
+Date: 2017-11-29
+GitTag: OTP-19.2.3.1
+PatchPackage: OTP 19.2.3.1
+Predecessor: OTP 19.2.3
+Release: 19
+Seqnum: ERL-88
+System: OTP
+TroubleReportId: OTP-14795
+---
+## OTP-19.2.3.1

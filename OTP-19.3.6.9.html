@@ -1,0 +1,39 @@
+---
+layout: patch
+erlang_download_readme: https://erlang.org/download/OTP-19.3.6.9.README
+name: 19.3.6.9
+readme: https://erlang.org/download/OTP-19.3.6.9.README
+release: 19
+src: https://api.github.com/repos/erlang/otp/tarball/refs/tags/OTP-19.3.6.9
+tag_name: OTP-19.3.6.9
+Applications:
+  ssh-4.4.2.4:
+    pre: "Note! The ssh-4.4.2.4 application can *not* be applied independently\n       of other applications on an arbitrary OTP 19 installation.\n\n       On a full OTP 19 installation, also the following runtime\n       dependencies have to be satisfied:\n       -- crypto-3.7.3 (first satisfied in OTP 19.3)\n       -- public_key-1.4 (first satisfied in OTP 19.3)\n       -- stdlib-3.3 (first satisfied in OTP 19.3)"
+    post: "Full runtime dependencies of ssh-4.4.2.4: crypto-3.7.3, erts-6.0,\n kernel-3.0, public_key-1.4, stdlib-3.3"
+    tickets:
+      OTP-15018:
+        release_note: "Fix rare spurios shutdowns of ssh servers when receiveing {'EXIT',_,normal} messages.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "ssh"
+      OTP-15064:
+        release_note: "Host key hash erroneously calculated for clients following draft-00 of RFC 4419, for example PuTTY\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "ssh"
+      OTP-15066:
+        release_note: "Renegotiation could fail in some states\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "ssh"
+Application: ssh-4.4.2.4
+Date: 2018-05-09
+GitTag: OTP-19.3.6.9
+PatchPackage: OTP 19.3.6.9
+Predecessor: OTP 19.3.6.8
+Release: 19
+Seqnum: 
+System: OTP
+TroubleReportId:
+  - OTP-15018
+  - OTP-15064
+  - OTP-15066
+---
+## OTP-19.3.6.9

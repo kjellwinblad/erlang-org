@@ -1,0 +1,28 @@
+---
+layout: patch
+erlang_download_readme: https://erlang.org/download/OTP-18.3.4.8.README
+name: 18.3.4.8
+readme: https://erlang.org/download/OTP-18.3.4.8.README
+release: 18
+src: https://api.github.com/repos/erlang/otp/tarball/refs/tags/OTP-18.3.4.8
+tag_name: OTP-18.3.4.8
+Applications:
+  ssh-4.2.2.5:
+    pre: "Note! The ssh-4.2.2.5 application can *not* be applied independently\n       of other applications on an arbitrary OTP 18 installation.\n\n       On a full OTP 18 installation, also the following runtime\n       dependency has to be satisfied:\n       -- crypto-3.6.3.1 (first satisfied in OTP 18.3.4.5)"
+    post: "Full runtime dependencies of ssh-4.2.2.5: crypto-3.6.3.1, erts-6.0,\n kernel-3.0, public_key-0.22, stdlib-2.3"
+    tickets:
+      OTP-14881:
+        release_note: "Default exec is disabled when a user-defined shell is enabled.\n\n"
+        type: " --- Improvements and New Features ---"
+        Applications: "ssh"
+Application: ssh-4.2.2.5
+Date: 2018-03-05
+GitTag: OTP-18.3.4.8
+PatchPackage: OTP 18.3.4.8
+Predecessor: OTP 18.3.4.7
+Release: 18
+Seqnum: 
+System: OTP
+TroubleReportId: OTP-14881
+---
+## OTP-18.3.4.8

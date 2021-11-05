@@ -1,0 +1,61 @@
+---
+layout: patch
+erlang_download_readme: https://erlang.org/download/OTP-23.2.4.README
+html: https://github.com/erlang/otp/releases/download/OTP-23.2.4/otp_doc_html_23.2.4.tar.gz
+html_url: https://github.com/erlang/otp/releases/tag/OTP-23.2.4
+man: https://github.com/erlang/otp/releases/download/OTP-23.2.4/otp_doc_man_23.2.4.tar.gz
+name: 23.2.4
+published_at: 2021-02-04T13:11:19Z
+readme: https://github.com/erlang/otp/releases/download/OTP-23.2.4/OTP-23.2.4.README
+release: 23
+src: https://github.com/erlang/otp/releases/download/OTP-23.2.4/otp_src_23.2.4.tar.gz
+tag_name: OTP-23.2.4
+win32: https://github.com/erlang/otp/releases/download/OTP-23.2.4/otp_win32_23.2.4.exe
+win64: https://github.com/erlang/otp/releases/download/OTP-23.2.4/otp_win64_23.2.4.exe
+Applications:
+  snmp-5.7.3:
+    pre: "The snmp-5.7.3 application can be applied independently of other\n applications on a full OTP 23 installation."
+    post: "Full runtime dependencies of snmp-5.7.3: crypto-3.3, erts-6.0,\n kernel-3.0, mnesia-4.12, runtime_tools-1.8.14, stdlib-2.5"
+    tickets:
+      OTP-17161:
+        release_note: "[manager] In a function handling snmp errors, an unused result (_Error) could result in matching issues and therefor case clause runtime errors (crash). Note that this would only happen in *very* unusual error cases.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "snmp"
+  ssl-10.2.2:
+    pre: "The ssl-10.2.2 application can be applied independently of other\n applications on a full OTP 23 installation."
+    post: "Full runtime dependencies of ssl-10.2.2: crypto-4.2, erts-10.0,\n inets-5.10.7, kernel-6.0, public_key-1.8, stdlib-3.12"
+    tickets:
+      OTP-17139:
+        release_note: "Avoid that upgrade (from TCP to TLS) servers starts multiple session cache handlers for the same server. This applies to Erlang distribution over TLS servers.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "ssl"
+        RelatedIds: "ERL-1458, OTP-16239"
+      OTP-17174:
+        release_note: "Legacy cipher suites defined before TLS-1.2 (but still supported) should be possible to use in TLS-1.2. They where accidentally excluded for available cipher suites for TLS-1.2 in OTP-23.2.2.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "ssl"
+        RelatedIds: "ERIERL-597"
+      OTP-16239:
+        release_note: "Enable Erlang distribution over TLS to run TLS-1.3, although TLS-1.2 will still be default.\n\n"
+        type: " --- Improvements and New Features ---"
+        Applications: "ssl"
+        RelatedIds: "ERL-1458, OTP-17139"
+Application:
+  - snmp-5.7.3
+  - ssl-10.2.2
+Date: 2021-02-04
+GitTag: OTP-23.2.4
+PatchPackage: OTP 23.2.4
+Predecessor: OTP 23.2.3
+Release: 23
+Seqnum:
+  - ERIERL-597
+  - ERL-1458
+System: OTP
+TroubleReportId:
+  - OTP-16239
+  - OTP-17139
+  - OTP-17161
+  - OTP-17174
+---
+## OTP-23.2.4

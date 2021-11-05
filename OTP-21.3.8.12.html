@@ -1,0 +1,68 @@
+---
+layout: patch
+erlang_download_readme: https://erlang.org/download/OTP-21.3.8.12.README
+html: https://github.com/erlang/otp/releases/download/OTP-21.3.8.12/otp_doc_html_21.3.8.12.tar.gz
+html_url: https://github.com/erlang/otp/releases/tag/OTP-21.3.8.12
+man: https://github.com/erlang/otp/releases/download/OTP-21.3.8.12/otp_doc_man_21.3.8.12.tar.gz
+name: 21.3.8.12
+published_at: 2020-09-25T11:39:01Z
+readme: https://github.com/erlang/otp/releases/download/OTP-21.3.8.12/OTP-21.3.8.12.README
+release: 21
+src: https://github.com/erlang/otp/releases/download/OTP-21.3.8.12/otp_src_21.3.8.12.tar.gz
+tag_name: OTP-21.3.8.12
+Applications:
+  crypto-4.4.2.2:
+    pre: "The crypto-4.4.2.2 application can be applied independently of other\n applications on a full OTP 21 installation."
+    post: "Full runtime dependencies of crypto-4.4.2.2: erts-9.0, kernel-5.3,\n stdlib-3.4"
+    tickets:
+      OTP-16376:
+        release_note: "Constant time comparisons added.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "crypto, ssh"
+  erts-10.3.5.8:
+    pre: "Note! The erts-10.3.5.8 application *cannot* be applied independently\n       of other applications on an arbitrary OTP 21 installation.\n\n       On a full OTP 21 installation, also the following runtime\n       dependencies have to be satisfied:\n       -- kernel-6.1 (first satisfied in OTP 21.1)\n       -- sasl-3.3 (first satisfied in OTP 21.2)"
+    post: "Full runtime dependencies of erts-10.3.5.8: kernel-6.1, sasl-3.3,\n stdlib-3.5"
+    tickets:
+      OTP-16371:
+        release_note: "Taking a scheduler offline could cause timers set while executing on that scheduler to be delayed until the scheduler was put online again. This bug was introduced in ERTS version 10.0 (OTP 21.0).\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "erts"
+      OTP-16379:
+        release_note: "A process calling erlang:system_flag(multi_scheduling, block) could end up blocked waiting for the operation to complete indefinitely.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "erts"
+  ssh-4.7.6.3:
+    pre: "Note! The ssh-4.7.6.3 application *cannot* be applied independently\n       of other applications on an arbitrary OTP 21 installation.\n\n       On a full OTP 21 installation, also the following runtime\n       dependency has to be satisfied:\n       -- crypto-4.4.2.2 (first satisfied in OTP 21.3.8.12)"
+    post: "Full runtime dependencies of ssh-4.7.6.3: crypto-4.4.2.2, erts-6.0,\n kernel-3.0, public_key-1.5.2, stdlib-3.3"
+    tickets:
+      OTP-16373:
+        release_note: "Fixed that ssh_connection:send could allocate a large amount of memory if given an iolist() as input data.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "ssh"
+      OTP-16375:
+        release_note: "Safe atom conversions.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "ssh"
+      OTP-16376:
+        release_note: "Constant time comparisons added.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "crypto, ssh"
+Application:
+  - crypto-4.4.2.2
+  - erts-10.3.5.8
+  - ssh-4.7.6.3
+Date: 2020-01-20
+GitTag: OTP-21.3.8.12
+PatchPackage: OTP 21.3.8.12
+Predecessor: OTP 21.3.8.11
+Release: 21
+Seqnum: 
+System: OTP
+TroubleReportId:
+  - OTP-16371
+  - OTP-16373
+  - OTP-16375
+  - OTP-16376
+  - OTP-16379
+---
+## OTP-21.3.8.12

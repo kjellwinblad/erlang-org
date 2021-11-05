@@ -1,0 +1,29 @@
+---
+layout: patch
+erlang_download_readme: https://erlang.org/download/OTP-17.2.2.README
+name: 17.2.2
+readme: https://erlang.org/download/OTP-17.2.2.README
+release: 17
+src: https://api.github.com/repos/erlang/otp/tarball/refs/tags/OTP-17.2.2
+tag_name: OTP-17.2.2
+Applications:
+  mnesia-4.12.2:
+    pre: "The mnesia-4.12.2 application can be applied independently of other\n applications on a full OTP 17 installation."
+    post: "Full runtime dependencies of mnesia-4.12.2: erts-6.0, kernel-3.0,\n stdlib-2.0"
+    tickets:
+      OTP-12124:
+        release_note: "Fixed a race which could make create_table fail if a node was going down during the transaction.\n\n"
+        type: " --- Fixed Bugs and Malfunctions ---"
+        Applications: "mnesia"
+        RelatedIds: "seq12694"
+Application: mnesia-4.12.2
+Date: 2014-09-01
+GitTag: OTP-17.2.2
+PatchPackage: OTP 17.2.2
+Predecessor: OTP 17.2.1
+Release: 17
+Seqnum: seq12694
+System: OTP
+TroubleReportId: OTP-12124
+---
+## OTP-17.2.2
